@@ -29,7 +29,7 @@ mean(data$order_amount)
 
 
 
-### b. A more appropriate quantity would be the avergae amount per unit sold. This will give us a correct average.
+### b. A more appropriate quantity would be the average amount per unit sold. This will give us a correct average.
 
 ### c. The value is calculated below
 
