@@ -381,6 +381,27 @@ summary {
 
 <div id="initial-data-processing" class="section level2">
 <h2>Initial Data Processing</h2>
+<pre class="r"><code># Read Data
+data = read.csv(&quot;question1.csv&quot;)
+
+# Summary
+summary(data)</code></pre>
+<pre><code>##     order_id       shop_id          user_id       order_amount   
+##  Min.   :   1   Min.   :  1.00   Min.   :607.0   Min.   :    90  
+##  1st Qu.:1251   1st Qu.: 24.00   1st Qu.:775.0   1st Qu.:   163  
+##  Median :2500   Median : 50.00   Median :849.0   Median :   284  
+##  Mean   :2500   Mean   : 50.08   Mean   :849.1   Mean   :  3145  
+##  3rd Qu.:3750   3rd Qu.: 75.00   3rd Qu.:925.0   3rd Qu.:   390  
+##  Max.   :5000   Max.   :100.00   Max.   :999.0   Max.   :704000  
+##   total_items       payment_method      created_at       
+##  Min.   :   1.000   Length:5000        Length:5000       
+##  1st Qu.:   1.000   Class :character   Class :character  
+##  Median :   2.000   Mode  :character   Mode  :character  
+##  Mean   :   8.787                                        
+##  3rd Qu.:   3.000                                        
+##  Max.   :2000.000</code></pre>
+<pre class="r"><code># Convert created_at to Date format
+data$created_at = as.Date(data$created_at)</code></pre>
 <div id="a.-it-is-very-clear-that-the-naive-average-order-value-does-not-take-into-account-the-quantity-of-orders-sold-and-just-does-the-mean-of-the-order-amounts-which-is-giving-an-erronous-result" class="section level3">
 <h3>a. It is very clear that the Naive Average Order Value does not take into account the quantity of orders sold and just does the mean of the order amounts, which is giving an erronous result</h3>
 <pre class="r"><code># Naive AOV
