@@ -51,5 +51,5 @@ WHERE ProductID IN (
 	LIMIT 1
 )
 ```
-#### Result - Boston Crab Meat
+#### Result - "Boston Crab Meat"
 
