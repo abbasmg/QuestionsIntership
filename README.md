@@ -1,6 +1,6 @@
 # Question 1
 
-See **question1.html** for R implementation in RMarkdown
+Click link [**question1.html**](https://htmlpreview.github.io/?https://github.com/abbasmg/QuestionsIntership/blob/master/question1.html) for html of R implementation in RMarkdown (html isn't directly opened on github)
 
 Extra - **question1.pynb** for python implementation sans explanation and plots
 
