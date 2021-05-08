@@ -1,0 +1,113 @@
+---
+title: "Shopify: Question 1"
+author: "Mohammad Abbas Meghani"
+date: "5/8/2021"
+output: html_document
+---
+
+## Initial Data Processing
+
+```{r setup, include=FALSE}
+# Read Data
+data = read.csv("question1.csv")
+
+# Summary
+summary(data)
+
+# Convert created_at to Date format
+data$created_at = as.Date(data$created_at)
+
+```
+
+### a.  It is very clear that the Naive Average Order Value does not take into account the quantity of orders sold and just does the mean of the order amounts, which is giving an erronous result
+
+```{r }
+# Naive AOV
+print(head(data))
+mean(data$order_amount)
+```
+
+
+
+### b. A more appropriate quantity would be the avergae amount per unit sold. This will give us a correct average.
+
+### c. The value is calculated below
+
+```{r}
+# Average Amount per order
+
+sum(data$order_amount)/sum(data$total_items)
+```
+
+
+## Supplementary Analysis
+
+Let us check create an order amount per item column and see if the quantity has a relationship with the price.
+
+```{r}
+# Plot to see if the order amount has any relationship with items sold
+
+data$avg_order_amt = data$order_amount/data$total_items
+
+plot(data$avg_order_amt,data$total_items,xlab="order amount per item",ylab="number of items",main="Amount per item vs number of items")
+```
+
+There seems to be no relationship
+
+
+### a. Check daily relationship
+
+We aggregate orders by date
+```{r}
+
+# Aggregate order_amount by Date to check date relationships
+
+daily_data = aggregate(list(data["order_amount"],data["total_items"]), 
+                          by=data["created_at"], sum)
+head(daily_data)
+
+# Daily AVerage Amount per Order
+daily_data$avg_daily_order_amt = daily_data$order_amount/daily_data$total_items
+head(daily_data)
+```
+
+
+Now we see what the average of daily order amount per item sold is and then try to check if any relationship exist between Date and amount
+```{r}
+
+# Mean of daily orders
+
+mean(daily_data$avg_daily_order_amt)
+
+plot(daily_data$created_at,daily_data$order_amount,xlab="Date",ylab="Amount",main="Date vs Amount")
+```
+
+### b. Check shopwise relationship
+
+```{r}
+# Aggregate orders by shop
+
+shop_data = aggregate(list(data["order_amount"],data["total_items"]), 
+                       by=data["shop_id"], sum)
+head(shop_data)
+
+# Shop AVerage Amount per Order
+shop_data$avg_shop_order_amt = shop_data$order_amount/shop_data$total_items
+mean(shop_data$avg_shop_order_amt)
+
+
+```
+
+We check for outliers in the data and find the shop with outlier that needs to be rechecked
+
+
+```{r}
+# Boxplot
+boxplot(shop_data$avg_shop_order_amt,main="Boxplot shop order amount per item",ylab="shop order amount per item")
+
+# Outlier shop
+shop_data[which.max(shop_data$avg_shop_order_amt),]
+
+```
+
+Shop 78 has a very large outlier which needs to be checked
